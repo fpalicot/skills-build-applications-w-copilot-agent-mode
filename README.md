@@ -17,6 +17,9 @@ Remember, it's self-paced so feel free to take a break! ☕️
   - https://$CODESPACE_NAME-8000.app.github.dev
 - If CODESPACE_NAME is not set, the backend falls back to localhost:
   - http://localhost:8000
+- The React frontend uses VITE_CODESPACE_NAME for the frontend API host. Define it in .env.local, for example:
+  - VITE_CODESPACE_NAME=your-codespace-name
+- If VITE_CODESPACE_NAME is not set, the frontend falls back to localhost to avoid broken https://undefined-8000... URLs.
 
 ### Verify the API
 
