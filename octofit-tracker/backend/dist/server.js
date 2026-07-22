@@ -5,11 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const routes_1 = __importDefault(require("./routes"));
+const api_1 = require("./config/api");
 const app = (0, express_1.default)();
 const port = 8000;
 app.use(express_1.default.json());
+app.use(routes_1.default);
 app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok', service: 'octofit-backend' });
+    res.json({ status: 'ok', service: 'octofit-backend', apiBaseUrl: (0, api_1.getApiBaseUrl)() });
 });
 const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/octofit_db';
 mongoose_1.default
@@ -18,6 +21,7 @@ mongoose_1.default
     console.log('Connected to MongoDB');
     app.listen(port, () => {
         console.log(`Backend listening on http://localhost:${port}`);
+        console.log(`API base URL: ${(0, api_1.getApiBaseUrl)()}`);
     });
 })
     .catch((error) => {
